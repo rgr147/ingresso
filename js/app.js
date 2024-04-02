@@ -10,15 +10,29 @@ function comprar() {
     //pegar a quantidade de ingresso
     let quantidadeEscolhida = parseInt(document.getElementById('qtd').value);
 
+
+    //atualiza ingresso escolhido
     if(ingressoEscolhido=='pista') {
-        pista = pista - quantidadeEscolhida;
-        bilheteria().bilheteriaPista.textContent = pista;
+        if(verificaDisponibilidade(pista, quantidadeEscolhida)){
+            pista = pista - quantidadeEscolhida;
+            bilheteria().bilheteriaPista.textContent = pista;
+        } else {
+            alert('Ingressos insuficientes');
+        }
     } else if(ingressoEscolhido=='superior') {
-        superior = superior - quantidadeEscolhida;
-        bilheteria().bilheteriaSuperior.textContent = superior;
+        if(verificaDisponibilidade(superior, quantidadeEscolhida)) {
+            superior = superior - quantidadeEscolhida;
+            bilheteria().bilheteriaSuperior.textContent = superior;     
+        } else {
+            alert('Ingressos insuficientes');
+        }
     } else {
-        inferior = inferior - quantidadeEscolhida;
-        bilheteria().bilheteriaInferior.textContent = inferior;
+        if(verificaDisponibilidade(inferior, quantidadeEscolhida)){
+            inferior = inferior - quantidadeEscolhida;
+            bilheteria().bilheteriaInferior.textContent = inferior;
+        } else {
+            alert('Ingressos insuficientes');
+        }
     }
 }
 
@@ -32,6 +46,14 @@ function bilheteria() {
         bilheteriaPista,
         bilheteriaSuperior,
         bilheteriaInferior
+    }
+}
+
+function verificaDisponibilidade(quantiaDisponivel, quantidadeEscolhida) {
+    if(quantiaDisponivel < quantidadeEscolhida) {
+        return(false);
+    } else {
+        return(true);
     }
 }
 
